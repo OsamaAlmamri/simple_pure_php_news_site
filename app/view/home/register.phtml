@@ -1,0 +1,105 @@
+<?php include VIEW . 'header.phtml' ?>
+<div class="col-md-3"></div>
+<div class="d-flex justify-content-center h-100 center-block col-md-6 ">
+    <div class="user_card">
+        <div class="d-flex justify-content-center">
+            <div class="brand_logo_container">
+                <img src="/images/defultLogin.jpeg" class="brand_logo" alt="Logo">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center form_container">
+            <form role="form" method="post" action="/admin/register">
+
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" name="name"
+                           class="form-control input_user "
+
+                           placeholder="الاسم الثلاثي">
+                    <!--                    @error('name') <span class="btn-block badge badge-danger">{{ $message }}</span> @enderror-->
+
+                </div>
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+
+                    <input type="text" name="username"
+                           class="form-control input_user "
+                           placeholder="اسم المستخدم">
+                    <!--                    @error('username') <span class="btn-block badge badge-danger">{{ $message }}</span> @enderror-->
+
+                </div>
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                    </div>
+                    <input type="email" name="email"
+                           class="form-control input_pass"
+                           value=""
+                           placeholder="الايمبل">
+                    <!--                    @error('email') <span class="btn-block badge badge-danger">{{ $message }}</span> @enderror-->
+
+                </div>
+
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                    </div>
+                    <input type="password" name="password"
+                           class="form-control " value=""
+                           placeholder=" كلمة المرور">
+                    <!--                    @error('password') <span class="btn-block badge badge-danger">{{ $message }}</span> @enderror-->
+
+                </div>
+
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                    </div>
+                    <input type="password" name="password_confirmation"
+                           class="form-control input_pass "
+                           value="" placeholder="تاكيد كلمة المرور">
+                    <!--                    @error('password_confirmation') <span class="btn-block badge badge-danger">{{ $message }}</span> @enderror-->
+
+                </div>
+
+
+                <div class="input-group mb-2">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                    </div>
+                    <input type="text" name="phone"
+                           class="form-control input_pass "
+                           value=""
+                           placeholder="رقم الهاتف">
+                    <!--                    @error('phone') <span class="btn-block badge badge-danger">{{ $message }}</span> @enderror-->
+
+                </div>
+
+
+                <div class="d-flex justify-content-center mt-3 login_container">
+                    <input type="submit" name="submit" class="btn login_btn"/>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-4">
+            <div class="d-flex justify-content-center links">
+                هل بديك حساب من قبل ؟ <a href="home/register" class="ml-2">التسجيل بالموقع</a>
+            </div>
+            <div class="d-flex justify-content-center links">
+                <a href="#">هل نسيمت كلمة السر</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include VIEW . 'footer.phtml' ?>
