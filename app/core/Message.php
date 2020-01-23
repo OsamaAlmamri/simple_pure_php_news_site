@@ -23,7 +23,6 @@ abstract class Message
             if ($msg != 'msgState') {
                 Session::delete($msg);
             }
-
             return $message;
         } else {
             return '';
@@ -31,59 +30,37 @@ abstract class Message
 
     }
 
+    public static function getInputErrorMessage($input)
+    {
+        $all = '';
+        $m = '';
+        if (Session::has('errors')) {
+            $all = Session::get('errors')['value'];
+            if (isset($all[$input])) {
+                $m = '<span class="btn-block badge badge-danger">';
+                foreach ($all[$input] as $error)
+                    $m .= $error . '<br>';
+                $m .= '</span>';
+
+            }
+        }
+        return $m;
+    }
+
 
     /**
      * @param $key
      * @param $msg
      */
-    public static function setMessage($key, $msg)
+    public static function setMessage($key, $msg, $type)
     {
-
-        Session::set($key, $msg);
-
+        Session::set($key, array('value' => $msg, 'type' => $type));
     }
 
     /**
      * @param $key
      * @return $view
      */
-    public static function check($key)
-    {
-        $view = '';
-        #check if state of Message is exit or return null
-        if (!Session::has('msgState')) {
-
-            return '';
-        }
-        #check if state of Message is exit or return null
-        if (!Session::has($key)) {
-
-            return '';
-        }
-
-        switch (Message::getMessage('msgState')) {
-            case 0:
-                if ($key == 'main') {
-                    $view = '<h3 class="text-danger text-center"> <strong>عذرا ! : </strong>' . Message::getMessage($key) . '</h3>';
-                } else {
-                    $view = '<h4 class="text-danger"> <strong>عذرا ! : </strong>' . Message::getMessage($key) . '</h4>';
-                }
-
-                break;
-
-            case 1:
-                if ($key = 'main') {
-                    $view = '<h3 class="text-success text-center"> <strong>OK ! : </strong>' . Message::getMessage($key) . '</h3>';
-                }
-
-                break;
-
-        }
-        return $view;
-
-    }
-
-
 }
 
 

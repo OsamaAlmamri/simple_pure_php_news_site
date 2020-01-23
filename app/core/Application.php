@@ -22,7 +22,7 @@ class Application
         if (file_exists(CONTROLLER . DIRECTORY_SEPARATOR . $this->namespace . DIRECTORY_SEPARATOR . $this->controller . '.php')) {
 
 //            $this->controller = new $this->controller;
-            $f=DIRECTORY_SEPARATOR.$this->namespace.DIRECTORY_SEPARATOR.$this->controller;
+            $f = DIRECTORY_SEPARATOR . $this->namespace . DIRECTORY_SEPARATOR . $this->controller;
             $this->controller = new $f;
             if (method_exists($this->controller, $this->action)) {
 
@@ -43,13 +43,21 @@ class Application
         $request = trim($_SERVER['REQUEST_URI'], '/');
         if (!empty($request)) {
             $url = explode('/', $request);
-            $this->namespace = (isset($url[0]) and ($url[0] == 'admin' or $url[0] == 'teacher')) ? $url[0] : 'site';
+            $this->namespace = (isset($url[0]) and ($url[0] == 'admin' or $url[0] == 'teacher' or $url[0] == 'university')) ? $url[0] : 'site';
             if ($this->namespace == 'site') {
                 $this->controller = isset($url[0]) ? $url[0] . 'Controller' : 'homeController';
                 $this->action = isset($url[1]) ? $url[1] : 'index';
                 unset($url[0], $url[1]);
             } else {
-                $this->controller = isset($url[1]) ? $url[1] . 'Controller' : 'dashboardController';
+                if (isset($url[1]) and ($url[1] == 'login' or $url[1] == 'logout' or $url[1] == 'register' or $url[1] == 'singUp' or $url[1] == 'index')) {
+
+
+
+                    $this->controller = isset($url[0]) ? $url[0] . 'Controller' : 'adminController';
+                    $this->action = $url[1];
+                    return ;
+                }
+                $this->controller = isset($url[1]) ? $url[1] . 'Controller' : 'adminController';
                 $this->action = isset($url[2]) ? $url[2] : 'index';
                 unset($url[0], $url[1], $url[2]);
             }

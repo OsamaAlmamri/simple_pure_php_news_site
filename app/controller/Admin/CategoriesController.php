@@ -21,7 +21,8 @@ class CategoriesController extends Controller
 
 
         $category = $this->model('Category');
-        $this->view('admin' . DIRECTORY_SEPARATOR . 'categories' . DIRECTORY_SEPARATOR . 'index', ['categories' => $category->all(), 'deleted' => false]);
+//        $this->view('admin' . DIRECTORY_SEPARATOR . 'categories' . DIRECTORY_SEPARATOR . 'index', ['categories' => $category->all(), 'deleted' => false]);
+        $this->view('admin' . DIRECTORY_SEPARATOR . 'categories' . DIRECTORY_SEPARATOR . 'index', ['categories' => [], 'deleted' => false]);
         $this->view->pageTitle = 'الاصناف';
         $this->view->render();
     }
@@ -32,7 +33,7 @@ class CategoriesController extends Controller
         Helper::viewAdminFile();
 
         $category = $this->model('Category');
-        $this->view('admin' . DIRECTORY_SEPARATOR . 'categories' . DIRECTORY_SEPARATOR . 'create', ['categories']);
+        $this->view('admin' . DIRECTORY_SEPARATOR . 'categories' . DIRECTORY_SEPARATOR . 'createOrUpdate', ['categories']);
         $this->view->pageTitle = 'الاصناف';
         $this->view->render();
     }
@@ -169,7 +170,7 @@ class CategoriesController extends Controller
                 if ($this->model->update($cate)) {
                     Message::setMessage('msgState', 1);
                     Message::setMessage('main', 'تم تعديل القسم  بنجاح');
-//                    $news = $this->model('News');
+//                    $news = $this->model('Course');
                     $this->view('admin' . DIRECTORY_SEPARATOR . 'categories' . DIRECTORY_SEPARATOR . 'index', ['categories' => $this->model->all(), 'deleted' => false]);
                     $this->view->pageTitle = 'الاصناف';
                     $this->view->render();

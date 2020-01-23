@@ -18,7 +18,7 @@ class NewsController extends Controller
         Helper::viewAdminFile();
 
 
-        $news = $this->model('News');
+        $news = $this->model('Course');
         $this->view('admin' . DIRECTORY_SEPARATOR . 'news' . DIRECTORY_SEPARATOR . 'index', ['news' => $news->all(), 'deleted' => false]);
         $this->view->pageTitle = 'الاخبار';
         $this->view->render();
@@ -29,7 +29,7 @@ class NewsController extends Controller
 
         Helper::viewAdminFile();
 
-        $new = $this->model('News');
+        $new = $this->model('Course');
         $this->view('admin' . DIRECTORY_SEPARATOR . 'news' . DIRECTORY_SEPARATOR . 'create');
         $this->view->pageTitle = 'الاخبار';
         $this->view->render();
@@ -40,7 +40,7 @@ class NewsController extends Controller
 
         Helper::viewAdminFile();
 
-        $newsModel = $this->model('News');
+        $newsModel = $this->model('Course');
         $news = $newsModel->find($id)[0];
 //        return var_dump($news);
         $this->view('admin' . DIRECTORY_SEPARATOR . 'news' . DIRECTORY_SEPARATOR . 'create', ['news' => $news, 'type' => 'create']);
@@ -53,7 +53,7 @@ class NewsController extends Controller
     public function delete($id)
     {
         Helper::viewAdminFile();
-        $this->model('News');
+        $this->model('Course');
         $c = $this->model->delete($id);
         Message::setMessage('msgState', 1);
         Message::setMessage('main', 'تم حذف الخبر بنجاح');
@@ -72,8 +72,6 @@ class NewsController extends Controller
         $f_type = $_FILES[$file] ['type'];
         $file_tmp = $_FILES[$file] ['tmp_name'];
         $types = array('image/jpeg', 'image/gif', 'image/png');
-//        $logo = '/images/news/deafult.png';
-
         if ($logo != "") {
             if (in_array($f_type, $types)) {
                 if (move_uploaded_file($file_tmp, $folder . $time . $logo))
@@ -89,13 +87,13 @@ class NewsController extends Controller
     {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $validate = Validation::required(['', 'categories', 'editor', 'title', 'introduction', 'sort',]); //sure that first element in array most be null
+            $validate = Validation::required(['', 'categories2', 'editor', 'title', 'introduction', 'sort',]); //sure that first element in array most be null
             if ($validate['status'] == 1) {
                 $time = date("D- y/m/j  h-i-s ");
                 $logo = $this->saveImage('logo', 'images/news/');
-                $categories = json_encode(($_REQUEST['categories']));
+                $categories = json_encode(($_REQUEST['categories2']));
                 $news = array(
-                    ':categories' => $categories,
+                    ':categories2' => $categories,
                     ':editor' => htmlentities($_REQUEST['editor']),
                     ':title' => htmlentities($_REQUEST['title']),
                     ':introduction' => htmlentities($_REQUEST['introduction']),
@@ -109,21 +107,21 @@ class NewsController extends Controller
                     ':updated_at' => $time,
                 );
 
-                $this->model('News');
+                $this->model('Course');
                 if ($this->model->add($news)) {
                     Message::setMessage('msgState', 1);
                     Message::setMessage('main', 'تم اضافة الخبر بنجاح');
-//                    $news = $this->model('News');
+//                    $news = $this->model('Course');
                     $this->view('admin' . DIRECTORY_SEPARATOR . 'news' . DIRECTORY_SEPARATOR . 'index', ['news' => $this->model->all(), 'deleted' => false]);
                     $this->view->pageTitle = 'الاخبار';
                     $this->view->render();
 
                 }
             } else {
-                if ($this->model == "News")
+                if ($this->model == "Course")
                     $news = $this->model;
                 else
-                    $news = $this->model('News');
+                    $news = $this->model('Course');
                 $this->view('admin' . DIRECTORY_SEPARATOR . 'news' . DIRECTORY_SEPARATOR . 'index', ['news' => $news->all(), 'deleted' => false]);
                 $this->view->pageTitle = 'الاخبار';
                 $this->view->render();
@@ -139,7 +137,7 @@ class NewsController extends Controller
 
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $validate = Validation::required(['', 'categories', 'editor', 'title', 'introduction', 'sort',]); //sure that first element in array most be null
+            $validate = Validation::required(['', 'categories2', 'editor', 'title', 'introduction', 'sort',]); //sure that first element in array most be null
             if ($validate['status'] == 1) {
                 $time = date("D- y/m/j  h-i-s ");
 //                return var_dump($_FILES['name']);
@@ -147,13 +145,13 @@ class NewsController extends Controller
                     $logo = $this->saveImage('logo', 'images/news/');
                 else
                     $logo = $_REQUEST['_logo'];
-                $categories = json_encode(($_REQUEST['categories']));
+                $categories = json_encode(($_REQUEST['categories2']));
                 $u = (['update_by' => Session::logged(), 'update_date' => $time]);
                 $uArray = json_decode($_REQUEST['_updates']);
                 $uArray[] = $u;
 
                 $news = array(
-                    ':categories' => $categories,
+                    ':categories2' => $categories,
                     ':id' => htmlentities($_REQUEST['_id']),
                     ':editor' => htmlentities($_REQUEST['editor']),
                     ':title' => htmlentities($_REQUEST['title']),
@@ -168,21 +166,21 @@ class NewsController extends Controller
 //                return var_dump($news);
 
 
-                $this->model('News');
+                $this->model('Course');
                 if ($this->model->update($news)) {
                     Message::setMessage('msgState', 1);
                     Message::setMessage('main', 'تم تعديل الخبر بنجاح');
-//                    $news = $this->model('News');
+//                    $news = $this->model('Course');
                     $this->view('admin' . DIRECTORY_SEPARATOR . 'news' . DIRECTORY_SEPARATOR . 'index', ['news' => $this->model->all(), 'deleted' => false]);
                     $this->view->pageTitle = 'الاخبار';
                     $this->view->render();
 
                 }
             } else {
-                if ($this->model == "News")
+                if ($this->model == "Course")
                     $news = $this->model;
                 else
-                    $news = $this->model('News');
+                    $news = $this->model('Course');
                 $this->view('admin' . DIRECTORY_SEPARATOR . 'news' . DIRECTORY_SEPARATOR . 'index', ['news' => $news->all(), 'deleted' => false]);
                 $this->view->pageTitle = 'الاخبار';
                 $this->view->render();

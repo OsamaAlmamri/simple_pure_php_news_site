@@ -15,11 +15,12 @@ abstract class Session
     }
 
 
-    public static function loggIn(array $user)
+    public static function loggIn(array $sessionData)
     {
-        $_SESSION['userID'] = $user['id'];
-        $_SESSION['userName'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
+        $_SESSION['userID'] = $sessionData['user_id'];
+        $_SESSION['userName'] = $sessionData['user_name'];
+        $_SESSION['role_id'] = $sessionData['role_id'];
+        $_SESSION['role_name'] = $sessionData['role_name'];
 
 
     }

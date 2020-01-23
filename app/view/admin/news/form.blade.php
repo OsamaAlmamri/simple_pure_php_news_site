@@ -68,11 +68,11 @@
 <div class="form-group">
     <label for="exampleInputFile">الاقسام </label>
 
-    <select class="select2 @error('categories')  is-invalid @enderror" name="categories[]" multiple="multiple"
+    <select class="select2 @error('categories2')  is-invalid @enderror" name="categories[]" multiple="multiple"
             data-placeholder="التصنيفات" style="width: 100%;">
         <?php foreach(Helper::getCategories() as $category){ ?>
         <option value="<?php echo $category['id']; ?>"
-        <?php  if (array_key_exists('news', $this->view_data) and in_array($category['id'], json_decode($this->view_data['news']['categories']))) echo 'selected';?> ><?php echo $category['name_ar']; ?> </option>
+        <?php  if (array_key_exists('news', $this->view_data) and in_array($category['id'], json_decode($this->view_data['news']['categories2']))) echo 'selected';?> ><?php echo $category['name_ar']; ?> </option>
 
         <?php } ?>
 

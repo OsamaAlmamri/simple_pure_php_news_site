@@ -58,7 +58,7 @@
                             <td><?php echo $n['title'] ?> </td>
 
                             <td><img src="<?php echo $n['logo'] ?>" alt="لايوجد" width="50px"></td>
-                            <td>   <?php echo Helper::Names($n['categories'], 'Category') ?></td>
+                            <td>   <?php echo Helper::Names($n['categories2'], 'Category') ?></td>
 
 
                             <td><?php echo ($n['has_comment'] == '1') ? 'مفعل' : 'معطل' ?></td>
@@ -132,6 +132,6 @@
     });
 </script>
 
-<?php include VIEW . 'admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'afterScript.blade.php' ?>
+<?php include VIEW . 'admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'afterScript.php' ?>
 
 

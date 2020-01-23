@@ -14,7 +14,7 @@ class Model
     public function __construct()
     {
         try {
-            $this->dsn = "mysql:host=localhost;dbname=hudhudsaba";
+            $this->dsn = "mysql:host=localhost;dbname=e-learning";
             $this->pdoObject = new PDO($this->dsn, Model::DB_USER, Model::DB_PASS);
 
             $this->pdoObject->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -48,14 +48,31 @@ class Model
         return $data;
     }
 
+    public function fetchOne($sql)
+    {
+        if (!$this->pdoObject) {
+
+            return false;
+        }
+
+        $result = $this->pdoObject->query($sql);
+        $row = $result->fetch();
+        return $row;
+    }
+
     public function escape($str)
     {
         return $this->pdoObject->quote($str);
     }
-
     public function preparation($str)
     {
         $stmt = $this->pdoObject->prepare($str);
+        return $stmt;
+    }
+
+    public function lastInsertId()
+    {
+        $stmt = $this->pdoObject->lastInsertId();
         return $stmt;
     }
 }

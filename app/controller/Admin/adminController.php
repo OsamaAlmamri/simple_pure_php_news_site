@@ -5,58 +5,57 @@
  */
 namespace admin;
 
-class adminController extends \Controller
+use auth\Login;
+use auth\LogOut;
+use auth\Register;
+use Controller;
+use Helper;
+
+class adminController extends Controller
 {
 
 
     public function index()
     {
-        \Helper::viewAdminFile();
-        $this->model('News');
+        Helper::viewAdminFile();
+        $this->model('Course');
         $this->view('admin' . DIRECTORY_SEPARATOR . 'index', ['news' => $this->model->all()]);
-//    return var_dump('xxxxxxxxx0');
         $this->view->pageTitle = 'admin index';
         $this->view->render();
 
     }
 
 
+    public function login()
+    {
+        $auth = new Login;
+        $auth->login('admin');
+
+    }
+
     public function register()
     {
+        $auth = new Register;
+        $auth->register('admin');
+    }
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-            $validate = \Validation::required(['', 'password', 'email', 'username']); //sure that first element in array most be null
-
-
-            if ($validate['status'] == 1) {
-                $post = array(
-                    ':email' => htmlentities($_REQUEST['email']),
-                    ':name' => htmlentities($_REQUEST['name']),
-                    ':username' => htmlentities($_REQUEST['username']),
-                    ':password' => \Hashing::init($_REQUEST['password']),
-                    ':phone' => htmlentities($_REQUEST['phone']),
-                    ':role' => 'user',
-                    ':status' => isset($_REQUEST['status']) ? htmlentities($_REQUEST['status']) : 1,
-                );
-
-                $this->model('Users');
+    public function PostLogin()
+    {
+        $auth = new login;
+        $auth->login('admin');
+    }
 
 
-                if ($this->model->add($post)) {
-                    \Message::setMessage('msgState', 1);
-                    \Message::setMessage('main', 'تم اضافة المستخدم بنجاح');
-                }
-            }
+    public function logout()
+    {
+        $auth = new LogOut;
+        $auth->logout();
+    }
 
-        }
-
-        # show form view  to add new
-        $this->view('home' . DIRECTORY_SEPARATOR . 'register');
-
-        $this->view->pageTitle = 'Add New User';
-        $this->view->render();
-
+    public function singUp()
+    {
+        $auth = new Register($_REQUEST);
+        $auth->signUp('student', 0);
     }
 
 }
